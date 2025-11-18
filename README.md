@@ -1,8 +1,9 @@
-**** 
+Name : thavaneshB
 
+Register No : 212224040352
 
 ### Ex. No. :8 CONFIGURING ANALOG PORT TO INTEFACE AN ANALOG SENSOR AND READ THE VALUES USING SERIAL PORT
-## Date: 
+## Date: 18.11.2025
 ###  
 
 ## Aim: 
@@ -151,16 +152,42 @@ This module also includes a potentiometer that will fix the threshold value, & t
 
 ##  Program 
 
+```
+#include "main.h"
+#include"stdio.h"
+#include<string.h>
+ADC_HandleTypeDef hadc1
+UART_handletypeDef huart2;
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_ADC1_Init(void);
+static void MX_USART2_UART_Init(void);
 
- 
+int main(void)
+{
+	uint16_t inp_val;
+	char msg[10];
+	HAL_Init();
+	SystemClock_Config();
+	MX_GPIO_Init();
+	MX_ADC1_Init();
+	MX_USART2_UART_Init();
+while (1)
+{
+	HAL_ADC_Start(&hadc1);
+	HAL_ADC _Pol1ForConversion(&hadc1,10000);
+	inp_val=HAL_ADC_GetValue(&hadc1) ;
+	sprintf(msg,'
+	, "%hu\r\n", inp_val);
+	HAL_UART_Transmit (&huart2, (uint8_t*)msg,strlen(msg),10000);
+	HAL_Delay (500);
+}
+	
+}
+ ```
+## Output  :
+<img width="1920" height="1200" alt="Screenshot 2025-11-11 092504" src="https://github.com/user-attachments/assets/021af58b-29a5-4f8d-8874-6827a10f1f62" />
+
 
 ## Result :
- 
-## Output  :
-
-
-
-
-
-
-****
+ Hence,the configuring analog port to inteface an analog sensor and read the values using serial port runned successfully.
